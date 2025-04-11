@@ -46,4 +46,4 @@
 *.vsix
 
 # PARSEC Benchmark
-parsec-Benchmark/
+parsec-benchmark/
