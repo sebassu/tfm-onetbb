@@ -2,13 +2,15 @@
 set -e
 
 setup_macos() {
-    brew install cmake m4 tbb wget gnu-tar
+    brew install cmake m4 tbb wget gnu-tar gcc binutils
     brew install --cask xquartz
     if ! xcode-select -p &>/dev/null; then
         echo "Xcode command line tools not found. Installing..."
         xcode-select --install
     fi
-    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"
+    VERSION=$(ls /opt/homebrew/bin/gcc-* 2>/dev/null | grep -Eo '[0-9]+' | sort -nr | head -1)
+    export CC="gcc-$VERSION" CXX="g++-$VERSION"
+    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:/opt/homebrew/opt/binutils/bin:$PATH"
     ./get-inputs
 }
 
